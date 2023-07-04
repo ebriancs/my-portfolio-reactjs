@@ -66,6 +66,7 @@ function Skills() {
       <section className="skills">
         <div className='content' style={contentAnimation}></div>
         <div className='title' style={titleAnimation}></div>
+        <div></div>
       </section>
     </>
   );

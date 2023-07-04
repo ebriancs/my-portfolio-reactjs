@@ -1,38 +1,109 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .App {
-  text-align: center;
+  background-color: rgb(30, 30, 30);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.navigation {
+  background-color: rgb(50, 50, 50);
+  height: 20vh;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.navigation ul {
+  height: 100%;
+  margin-right: 3%;
+  list-style-type: none;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: right;
+}
+
+.navigation ul li a {
+  position: relative;
+  background-color: none;
+  color: slategray;
+  margin: 10px;
+  padding: 15px 30px;
+  text-decoration: none;
+  border: none;
+  border-radius: 4px;
+  border-top: none;
+  border-right: 2px solid darkslategray;
+  border-bottom: 1px solid slategray;
+  border-left: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.introduction {
+  background-color: rgb(30, 30, 30);
+  height: 80vh;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.introduction .content {
+  background-color: rgb(40, 40, 40);
+  width: 60%;
+  height: 60%;
+  border-radius: 10px;
 }
 
-@keyframes App-logo-spin {
+.skills {
+  background-color: dimgray;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  gap: 1%;
+}
+
+.skills .content {
+  background-color: darkorange;
+  width: 85%;
+  height: 95%;
+  border-radius: 0 5px 5px 0;
+  /*
+  animation: skills-content-entrance 1s ease forwards;
+  animation-delay: 1s;
+  */
+}
+
+@keyframes skills-content-entrance {
   from {
-    transform: rotate(0deg);
+    transform: translateX(-100%);
   }
   to {
-    transform: rotate(360deg);
+    transform: translateX(0);
   }
 }
+
+.skills .title {
+  background-color: darkorange;
+  width: 10%;
+  height: 95%;
+  /*
+  animation: skills-title-entrance 1s ease forwards;
+  animation-delay: 1s;
+  */
+}
+
+@keyframes skills-title-entrance {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.achievements {
+  background-color: maroon;
+  height: 100vh;
+}
+
+.contact {}

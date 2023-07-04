@@ -4,6 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import skills_character from './images/vecteezy/img2.png';
+import achievements_character from './images/vecteezy/img3.png';
+export { skills_character, achievements_character };
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

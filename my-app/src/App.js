@@ -1,4 +1,5 @@
 import './App.css';
+import { skills_character, achievements_character } from '.';
 
 import React, { useState, useEffect } from 'react';
 
@@ -64,9 +65,16 @@ function Skills() {
   return (
     <>
       <section className="skills">
-        <div className='content' style={contentAnimation}></div>
-        <div className='title' style={titleAnimation}></div>
-        <div></div>
+        <div className='content' style={contentAnimation}>
+
+        </div>
+        <div className='title' style={titleAnimation}>
+
+        </div>
+        <div className='character'>
+          <img src={skills_character} alt="" />
+          <div>{/* SURF BOARD */}</div>
+        </div>
       </section>
     </>
   );

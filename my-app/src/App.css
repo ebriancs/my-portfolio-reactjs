@@ -6,6 +6,7 @@
 
 .App {
   background-color: rgb(30, 30, 30);
+  overflow-x: hidden;
 }
 
 .navigation {
@@ -55,6 +56,7 @@
 }
 
 .skills {
+  position: relative;
   background-color: dimgray;
   height: 100vh;
   display: flex;
@@ -69,7 +71,6 @@
   border-radius: 0 5px 5px 0;
   /*
   animation: skills-content-entrance 1s ease forwards;
-  animation-delay: 1s;
   */
 }
 
@@ -88,7 +89,6 @@
   height: 95%;
   /*
   animation: skills-title-entrance 1s ease forwards;
-  animation-delay: 1s;
   */
 }
 
@@ -99,6 +99,61 @@
   to {
     transform: translateY(0);
   }
+}
+
+.skills .character {
+  position: absolute;
+  bottom: 5%;
+  right: 15%;
+  width: 200px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: skills-character-floating 3s ease-in-out infinite;
+}
+
+@keyframes skills-character-floating {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.skills .character img {
+  width: auto;
+  height: 90%;
+  z-index: 1;
+}
+
+.skills .character div {
+  position: absolute;
+  bottom: -10%;
+  background-color: rgb(25, 25, 25);
+  width: 90%;
+  height: 30%;
+  z-index: 0;
+  border-top: 1px solid darkslategray;
+  border-bottom: 10px solid darkslategray;
+  border-left: 1px solid darkslategray;
+  border-right: 5px solid darkslategray;
+  border-radius: 50%;
+  transition: transform 0.3s ease-out;
+}
+
+.skills .character div:hover {
+  border-top: 1px solid cyan;
+  border-bottom: 10px solid cyan;
+  border-left: 1px solid cyan;
+  border-right: 5px solid cyan;
+  box-shadow: 0px 4px 4px rgba(0, 255, 255, 0.8);
+  transform: scale(1.2);
 }
 
 .achievements {

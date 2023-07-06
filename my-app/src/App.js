@@ -1,9 +1,11 @@
 import './App.css';
+import './Test.css';
 import { skills_character, achievements_character } from '.';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { useSpring, animated } from 'react-spring';
 
-
+// FUNCTIONS
 function Navigation() {
   return (
     <>
@@ -29,51 +31,60 @@ function Introduction() {
   );
 }
 
-function Skills() {
-  const [isSkillsVisible, setIsSkillsVisible] = useState(false);
-  const [contentAnimation, setContentAnimation] = useState({});
-  const [titleAnimation, setTitleAnimation] = useState({});
+function Skills({ onSkillsComplete }) {
+  const [isSkillsElementVisible, setIsSkillsElementVisible] = useState(false);
+  const [isCharacterAnimationStarted, setIsCharacterAnimationStarted] = useState(false);
+  const [isCharacterAnimationFinished, setIsCharacterAnimationFinished] = useState(false);
+  const [isContentAnimationFinished, setIsContentAnimationFinished] = useState(false);
+  const [isTitleAnimationFinished, setIsTitleAnimationFinished] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       const skills = document.querySelector('.skills');
-      const isSkillsVisible = skills.getBoundingClientRect().bottom <= window.innerHeight;
-      setIsSkillsVisible(isSkillsVisible);
-    }
+      const isSkillsElementVisible = skills.getBoundingClientRect().bottom <= window.innerHeight;
+
+      if(isSkillsElementVisible) {
+        setIsSkillsElementVisible(isSkillsElementVisible);
+      }
+    };
 
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
-    }
+    };
   }, []);
 
-  useEffect(() => {
-    if (isSkillsVisible) {
-      setContentAnimation({
-        animation: 'skills-content-entrance 1s ease forwards'
-      });
-      setTitleAnimation({
-        animation: 'skills-title-entrance 1s ease forwards'
-      });
-    }
-    else {
-      setContentAnimation({});
-      setTitleAnimation({});
-    }
-  }, [isSkillsVisible]);
+  if (isSkillsElementVisible && isCharacterAnimationFinished && isContentAnimationFinished && isTitleAnimationFinished) {
+    onSkillsComplete(true);
+  }
+
+  const handleCharacterAnimationStart = () => {
+    setIsCharacterAnimationStarted(true);
+  }
+
+  const handleCharacterAnimationEnd = () => {
+    setIsCharacterAnimationFinished(true);
+  };
+
+  const handleContentAnimationEnd = () => {
+    setIsContentAnimationFinished(true);
+  }
+
+  const handleTitleAnimationEnd = () => {
+    setIsTitleAnimationFinished(true);
+  }
 
   return (
     <>
       <section className="skills">
-        <div className='content' style={contentAnimation}>
-
+        <div onAnimationEnd={handleContentAnimationEnd} className={`content ${isSkillsElementVisible && isCharacterAnimationFinished ? 'animate' : ''}`}>
         </div>
-        <div className='title' style={titleAnimation}>
-
+        <div onAnimationEnd={handleTitleAnimationEnd} className={`title ${isSkillsElementVisible && isCharacterAnimationFinished ? 'animate' : ''}`}>
+          <h2>SKILLS</h2>
         </div>
-        <div className='character'>
+        <div onAnimationStart={handleCharacterAnimationStart} onAnimationEnd={handleCharacterAnimationEnd} className={`character ${isSkillsElementVisible ? 'animate' : ''}`}>
           <img src={skills_character} alt="" />
-          <div>{/* SURF BOARD */}</div>
+          <div className={`${isSkillsElementVisible && isCharacterAnimationStarted ? 'active' : ''}`}></div>
         </div>
       </section>
     </>
@@ -101,16 +112,22 @@ function Contact() {
 }
 
 function App() {
+  const [isSkillsCompleted, setIsSkillsCompleted] = useState(false);
+
+  const handleSkillsComplete = (completed) => {
+    setIsSkillsCompleted(completed);
+  };
+
   return (
-    <div className="App">
+    <div className='app'>
       <header>
         <Navigation />
       </header>
 
       <main>
         <Introduction />
-        <Skills />
-        <Achievements />
+        <Skills onSkillsComplete={handleSkillsComplete} />
+        {isSkillsCompleted && <Achievements />}
       </main>
 
       <footer>

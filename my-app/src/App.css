@@ -4,8 +4,9 @@
   box-sizing: border-box;
 }
 
-.App {
+.app {
   background-color: rgb(30, 30, 30);
+  color: whitesmoke;
   overflow-x: hidden;
 }
 
@@ -57,72 +58,105 @@
 
 .skills {
   position: relative;
-  background-color: dimgray;
+  background-color: rgb(30, 30, 30);
   height: 100vh;
   display: flex;
   align-items: center;
-  gap: 1%;
+  overflow: hidden;
 }
 
 .skills .content {
   background-color: darkorange;
-  width: 85%;
+  width: 90%;
   height: 95%;
   border-radius: 0 5px 5px 0;
-  /*
+  opacity: 0;
+}
+
+.skills .content.animate {
   animation: skills-content-entrance 1s ease forwards;
-  */
 }
 
 @keyframes skills-content-entrance {
   from {
     transform: translateX(-100%);
   }
+
   to {
     transform: translateX(0);
+    opacity: 1;
   }
 }
 
 .skills .title {
-  background-color: darkorange;
   width: 10%;
   height: 95%;
-  /*
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+
+.skills .title.animate {
   animation: skills-title-entrance 1s ease forwards;
-  */
 }
 
 @keyframes skills-title-entrance {
   from {
     transform: translateY(-100%);
   }
+
   to {
-    transform: translateY(0);
+    /*DEFAULT*/
+    opacity: 1;
   }
+}
+
+.skills .title h2 {
+  transform: rotate(90deg);
+  font-size: 60px;
+  letter-spacing: 10px;
 }
 
 .skills .character {
   position: absolute;
-  bottom: 5%;
-  right: 15%;
+  bottom: 7%;
+  right: 7%;
   width: 200px;
   height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  animation: skills-character-floating 3s ease-in-out infinite;
+  opacity: 0;
+}
+
+.skills .character.animate {
+  animation: skills-character-floating 3s ease-in-out infinite, skills-character-entrance 3s ease forwards;
 }
 
 @keyframes skills-character-floating {
   0% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(10px);
   }
+
   100% {
     transform: translateY(0);
+  }
+}
+
+@keyframes skills-character-entrance {
+  from {
+    right: -15%;
+  }
+
+  to {
+    /*DEFAULT*/
+    opacity: 1;
   }
 }
 
@@ -147,18 +181,29 @@
   transition: transform 0.3s ease-out;
 }
 
-.skills .character div:hover {
-  border-top: 1px solid cyan;
-  border-bottom: 10px solid cyan;
-  border-left: 1px solid cyan;
-  border-right: 5px solid cyan;
-  box-shadow: 0px 4px 4px rgba(0, 255, 255, 0.8);
-  transform: scale(1.2);
+.skills .character div.active {
+  animation: skills-character-div-active 5s ease forwards;
+}
+
+@keyframes skills-character-div-active {
+  from {
+    border-top: 1px solid cyan;
+    border-bottom: 10px solid cyan;
+    border-left: 1px solid cyan;
+    border-right: 5px solid cyan;
+    box-shadow: 0px 4px 4px rgba(0, 255, 255, 0.8);
+    transform: scale(1.2);
+  }
+
+  to {
+    border-top: 1px solid darkslategray;
+    border-bottom: 10px solid darkslategray;
+    border-left: 1px solid darkslategray;
+    border-right: 5px solid darkslategray;
+  }
 }
 
 .achievements {
   background-color: maroon;
   height: 100vh;
 }
-
-.contact {}

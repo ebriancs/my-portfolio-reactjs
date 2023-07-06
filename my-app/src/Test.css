@@ -1,0 +1,56 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.Test {
+    background-color: dimgray;
+    width: 100vw;
+    height: 100vh;
+}
+
+.Test .content1 {
+    background-color: darkblue;
+    width: 40%;
+    height: 40%;
+}
+
+@keyframes test-content1-entrance {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.test-content1-entrance {
+    animation: test-content1-entrance 1s ease 1s forwards;
+}
+
+.Test .content2 {
+    background-color: darkorange;
+    width: 40%;
+    height: 40%;
+}
+
+@keyframes test-content2-entrance {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.test-content2-entrance {
+    animation: test-content2-entrance 1s ease 1s forwards;
+}
+
+.Test button {
+    position: absolute;
+    bottom: 10px;
+    left: calc(50% - 20px);
+    padding: 20px 40px;
+}

@@ -1,15 +1,19 @@
+/* ALL */
 * {
+  font-family: monospace;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* APP */
 .app {
   background-color: rgb(30, 30, 30);
   color: whitesmoke;
   overflow-x: hidden;
 }
 
+/* NAVIGATION */
 .navigation {
   background-color: rgb(50, 50, 50);
   height: 20vh;
@@ -41,6 +45,7 @@
   cursor: pointer;
 }
 
+/* INTRODUCTION */
 .introduction {
   background-color: rgb(30, 30, 30);
   height: 80vh;
@@ -56,6 +61,7 @@
   border-radius: 10px;
 }
 
+/* SKILLS */
 .skills {
   position: relative;
   background-color: rgb(30, 30, 30);
@@ -128,6 +134,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  z-index: 3;
   opacity: 0;
 }
 
@@ -203,7 +210,418 @@
   }
 }
 
+.skills .character div:hover {
+  animation: none;
+  border-top: 1px solid cyan;
+  border-bottom: 10px solid cyan;
+  border-left: 1px solid cyan;
+  border-right: 5px solid cyan;
+  box-shadow: 0px 4px 4px rgba(0, 255, 255, 0.8);
+  transform: scale(1.2);
+}
+
+/* ACHIEVEMENTS */
 .achievements {
-  background-color: maroon;
+  position: relative;
+  background-color: rgb(30, 30, 30);
   height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.achievements .content {
+  background-color: maroon;
+  width: 90%;
+  height: 95%;
+  border-radius: 5px 0 0 5px;
+  opacity: 0;
+}
+
+.achievements .content.animate {
+  animation: achievements-content-entrance 1s ease forwards;
+}
+
+@keyframes achievements-content-entrance {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.achievements .title {
+  width: 10%;
+  height: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+
+.achievements .title.animate {
+  animation: achievements-title-entrance 1s ease forwards;
+}
+
+@keyframes achievements-title-entrance {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    /*DEFAULT*/
+    opacity: 1;
+  }
+}
+
+.achievements .title h2 {
+  transform: rotate(-90deg);
+  font-size: 60px;
+  letter-spacing: 10px;
+}
+
+.achievements .character {
+  position: absolute;
+  bottom: 7%;
+  left: 7%;
+  width: 200px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  opacity: 0;
+}
+
+.achievements .character.animate {
+  animation: achievements-character-floating 3s ease-in-out infinite, achievements-character-entrance 3s ease forwards;
+}
+
+@keyframes achievements-character-floating {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(10px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes achievements-character-entrance {
+  from {
+    left: -15%;
+  }
+
+  to {
+    /*DEFAULT*/
+    opacity: 1;
+  }
+}
+
+.achievements .character img {
+  position: absolute;
+  left: calc(50% - 30%);
+  width: auto;
+  height: 90%;
+  z-index: 1;
+}
+
+.achievements .character div {
+  position: absolute;
+  bottom: -10%;
+  background-color: rgb(25, 25, 25);
+  width: 90%;
+  height: 30%;
+  z-index: 0;
+  border-top: 1px solid darkslategray;
+  border-bottom: 10px solid darkslategray;
+  border-left: 5px solid darkslategray;
+  border-right: 1px solid darkslategray;
+  border-radius: 50%;
+  transition: transform 0.3s ease-out;
+}
+
+.achievements .character div.active {
+  animation: achievements-character-div-active 5s ease forwards;
+}
+
+@keyframes achievements-character-div-active {
+  from {
+    border-top: 1px solid cyan;
+    border-bottom: 10px solid cyan;
+    border-left: 5px solid cyan;
+    border-right: 1px solid cyan;
+    box-shadow: 0px 4px 4px rgba(0, 255, 255, 0.8);
+    transform: scale(1.2);
+  }
+
+  to {
+    border-top: 1px solid darkslategray;
+    border-bottom: 10px solid darkslategray;
+    border-left: 5px solid darkslategray;
+    border-right: 1px solid darkslategray;
+  }
+}
+
+.achievements .character div:hover {
+  animation: none;
+  border-top: 1px solid cyan;
+  border-bottom: 10px solid cyan;
+  border-left: 5px solid cyan;
+  border-right: 1px solid cyan;
+  box-shadow: 0px 4px 4px rgba(0, 255, 255, 0.8);
+  transform: scale(1.2);
+}
+
+/* CONTACT */
+.contact {
+  position: relative;
+  background-color: rgb(30, 30, 30);
+  color: whitesmoke;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  overflow: hidden;
+}
+
+.contact-top {
+  position: relative;
+  width: 100%;
+  flex: 1.5;
+}
+
+.contact-bottom {
+  background-color: rgb(50, 50, 50);
+  width: 100%;
+  flex: 1;
+}
+
+.contact .card {
+  position: absolute;
+  bottom: -10%;
+  right: 5%;
+  transform: perspective(800px) rotateX(60deg);
+  transform-style: preserve-3d;
+  transform-origin: bottom center;
+  background-color: darkolivegreen;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  animation: contact-card-animation 2s ease 1s forwards;
+}
+
+@keyframes contact-card-animation {
+  to {
+    transform: perspective(800px) rotateX(0deg);
+  }
+}
+
+.contact .card-top {
+  flex: 1;
+  background-color: rgb(35, 35, 35);
+  border-radius: 5px 0 0 0;
+}
+
+.contact .card-bottom {
+  flex: 1.5;
+  border-radius: 0 0 5px 5px;
+}
+
+.contact .card-top img {
+  background-color: rgb(35, 35, 35);
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40%;
+  height: auto;
+  border: 1px solid darkolivegreen;
+  border-radius: 0 0 0 50%;
+  box-shadow: 2px -2px 8px rgba(85, 107, 47, 0.8);
+}
+
+.contact .card-top p {
+  width: 60%;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  text-align: justify;
+  box-sizing: border-box;
+}
+
+.contact .card-bottom h2 {
+  width: 60%;
+  text-align: center;
+  padding: 10px 0 0 5px;
+}
+
+.contact .card-bottom h4 {
+  width: 60%;
+  text-align: center;
+}
+
+.contact .card-bottom ul {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 20%;
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.contact .card-bottom li {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.contact .card-bottom a,
+.contact .card-bottom i {
+  color: whitesmoke;
+  font-size: 40px;
+  transition: transform 0.3s ease;
+}
+
+.contact .card-bottom li:first-child a:hover {
+  color: #0A66C2;
+  transform: scale(1.2);
+}
+
+.contact .card-bottom li:nth-child(2) a:hover {
+  color: #28A745;
+  transform: scale(1.2);
+}
+
+.contact .card-bottom li:nth-child(3) i:hover,
+.contact .card-bottom li:last-child i:hover {
+  opacity: 0.8;
+  transform: scale(1.2);
+}
+
+/* DETAILS */
+.details {
+  position: absolute;
+  bottom: 5%;
+  left: 2.5%;
+  width: 40%;
+  height: 80%;
+}
+
+.details table {
+  border-collapse: separate;
+  width: 100%;
+  height: 100%;
+  border-spacing: 0 3px;
+}
+
+.details th {
+  background-color: maroon;
+  padding-left: 10px;
+  text-align: left;
+  box-sizing: border-box;
+  border-radius: 5px 0 0 5px;
+}
+
+.details td {
+  background-color: darkslategray;
+  padding-left: 10px;
+  text-align: center;
+  border-radius: 0 5px 5px 0;
+}
+
+.details tr {
+  transform: translateX(-110%);
+  opacity: 0;
+}
+
+.details tr.entrance {
+  animation: details-tr-entrance 1s ease forwards;
+}
+
+@keyframes details-tr-entrance {
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.details tr.exit {
+  animation: details-tr-exit 1s ease forwards;
+}
+
+@keyframes details-tr-exit {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* MESSAGE */
+.message {
+  position: absolute;
+  top: calc(50% - 30%);
+  left: calc(50% - 30%);
+  background-color: darkslategray;
+  width: 60%;
+  height: 60%;
+  border: 1px solid dimgray;
+  border-radius: 5px;
+  display: none;
+  transition: transform 0.3s ease;
+}
+
+.message.entrance {
+  display: block;
+  transform: scale(0.9);
+  opacity: 0;
+  animation: message-entrance 0.5s ease forwards;
+}
+
+@keyframes message-entrance {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.message .close {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  background-color: transparent;
+  font-size: x-large;
+  font-weight: bold;
+  border: none;
+  transition: transform 0.3s ease;
+}
+
+.message .close:hover {
+  transform: scale(1.2);
+}
+
+.message h2 {
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.message form {
+  background-color: dimgray;
+  height: 80%;
 }

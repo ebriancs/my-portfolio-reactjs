@@ -84,7 +84,7 @@ function Skills({ onSkillsComplete }) {
                 </div>
                 <div onAnimationStart={handleCharacterAnimationStart} onAnimationEnd={handleCharacterAnimationEnd} className={`character ${isSkillsElementVisible ? 'animate' : ''}`}>
                     <img src={skills_character} alt="" />
-                    <div className={`${isSkillsElementVisible && isCharacterAnimationStarted ? 'active' : ''}`}>{/*SURF BOARD*/}</div>
+                    <div className={`${isSkillsElementVisible && isCharacterAnimationStarted ? 'active' : ''}`}></div>
                 </div>
             </section>
         </>
@@ -144,7 +144,7 @@ function Achievements({ onAchievementsComplete }) {
                 </div>
                 <div onAnimationStart={handleCharacterAnimationStart} onAnimationEnd={handleCharacterAnimationEnd} className={`character ${isAchievementsElementVisible ? 'animate' : ''}`}>
                     <img src={achievements_character} alt="" />
-                    <div className={`${isAchievementsElementVisible && isCharacterAnimationStarted ? 'active' : ''}`}>{/*SURF BOARD*/}</div>
+                    <div className={`${isAchievementsElementVisible && isCharacterAnimationStarted ? 'active' : ''}`}></div>
                 </div>
             </section>
         </>
@@ -152,9 +152,26 @@ function Achievements({ onAchievementsComplete }) {
 }
 
 function Contact() {
+    const [isContactElementVisible, setIsContactElementVisible] = useState(false);
     const [isCardAnimationFinished, setIsCardAnimationFinished] = useState(false);
     const [isDetailClicked, setIsDetailClicked] = useState(false);
     const [isMessageClicked, setIsMessageClicked] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const contact = document.querySelector('.contact');
+            const isContactElementVisible = contact.getBoundingClientRect().bottom <= window.innerHeight;
+
+            if (isContactElementVisible) {
+                setIsContactElementVisible(isContactElementVisible);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     const handleCardAnimationEnd = () => {
         setIsCardAnimationFinished(true);
@@ -163,11 +180,15 @@ function Contact() {
     const handleDetailClick = () => {
         if (!isDetailClicked) {
             setIsDetailClicked(!isDetailClicked);
+            setIsMessageClicked(false);
         }
     };
 
     const handleMessageClick = () => {
-        setIsMessageClicked(!isMessageClicked);
+        if (!isMessageClicked) {
+            setIsMessageClicked(!isMessageClicked);
+            setIsDetailClicked(false);
+        }
     };
 
     const handleMessageCloseClick = () => {
@@ -203,7 +224,7 @@ function Contact() {
 
     function Message() {
         const [formData, setFormData] = useState([
-            { name: '', email: '', subject: '', message: '' }
+            { name: 'Your name', email: '', subject: '', message: '' }
         ]);
 
         const formFields = [
@@ -225,16 +246,16 @@ function Contact() {
 
         return (
             <>
-                <div className={`message ${isMessageClicked ? 'entrance' : 'exit'}`}>
+                <div className={`message ${isMessageClicked && isCardAnimationFinished ? 'entrance' : 'exit'}`}>
                     <button onClick={handleMessageCloseClick} className='close'>&times;</button>
                     <h2>Hi! Let's connect</h2>
                     <form action="" onSubmit={handleSubmit}>
                         {formFields.map((field) => (
                             <div key={field.name}>
                                 {field.type === 'textarea' ? (
-                                    <textarea name={field.name} id={field.name} value={field.initial} onChange={handleChange} cols="30" rows="10"></textarea>
+                                    <textarea name={field.name} id={field.name} placeholder={field.initial} onChange={handleChange} cols="30" rows="10" required></textarea>
                                 ) : (
-                                    <input name={field.name} id={field.name} type={field.type} value={formData[field.name]} onChange={handleChange} />
+                                    <input name={field.name} id={field.name} type={field.type} placeholder={field.initial} onChange={handleChange} required />
                                 )}
                             </div>
                         ))}
@@ -249,7 +270,7 @@ function Contact() {
         <>
             <section className="contact">
                 <div className='contact-top'>
-                    <div onAnimationEnd={handleCardAnimationEnd} className='card'>
+                    <div onAnimationEnd={handleCardAnimationEnd} className={`card ${isContactElementVisible ? 'animate' : ''}`}>
                         <div className='card-top'>
                             <p>
                                 Skilled and motivated computer programmer and developer, knowledgeable in web development and data science, prioritizing to develop high-quality programs and organized codes. A good communicator with excellent problem-solving skills and a passion for continuous learning.
@@ -269,10 +290,43 @@ function Contact() {
                     </div>
 
                     <Details />
+                    <Message />
                 </div>
-                <Message />
                 <div className='contact-bottom'>
-
+                    <div className='referrence'>
+                        <div className='left'>
+                            <h4>REFERRENCE</h4>
+                            <ul>
+                                <li><a href="https://www.vecteezy.com/free-png/cartoon" target='_blank'>Cartoon PNGs by Vecteezy</a></li>
+                            </ul>
+                        </div>
+                        <div className='middle'>
+                            <h4>CONTACT</h4>
+                            <ul>
+                                <li>Email: ebrian.cs@gmail.com</li>
+                                <li>Phone: +639267067396</li>
+                            </ul>
+                        </div>
+                        <div className='right'>
+                            <h4>DEVELOPMENT TOOLS</h4>
+                            <ul>
+                                <li>HTML</li>
+                                <li>CSS</li>
+                                <li>JavaScript</li>
+                                <li>ReactJS</li>
+                                <li>JSX</li>
+                            </ul>
+                            <ul>
+                                <li>Linux</li>
+                                <li>Git</li>
+                                <li>Github</li>
+                                <li>Vscode</li>
+                            </ul>
+                        </div>
+                        <div className='end'>
+                            <p>Developed by John Ebrian S. Manalo</p>
+                        </div>
+                    </div>
                 </div>
             </section>
         </>
@@ -288,7 +342,7 @@ function App() {
     };
 
     const handleAchievementsComplete = (completed) => {
-        setIsAchievementsCompleted(true);
+        setIsAchievementsCompleted(completed);
     }
 
     return (
@@ -311,4 +365,4 @@ function App() {
     );
 }
 
-export default Contact;
+export default Skills;

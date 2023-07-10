@@ -1,8 +1,8 @@
 import './App.css';
 import './Test.css';
-import { profile, skills_character, achievements_character } from '.';
+import { my_profile, skills_character, achievements_character, my_html, my_css, my_js, my_python, my_sql, my_cpp, my_csharp, my_bootstrap, my_jquery, my_react, my_django, my_flask, my_sqlite, my_mysql, the_great_hackathon, introduction_to_html, introduction_to_css, introduction_to_javascript, javascript_intermediate } from '.';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSpring, animated } from 'react-spring';
 
 // FUNCTIONS
@@ -32,7 +32,7 @@ function Introduction() {
 }
 
 function Skills({ onSkillsComplete }) {
-    const [isSkillsElementVisible, setIsSkillsElementVisible] = useState(false);
+    const [isSkillsVisible, setIsSkillsVisible] = useState(false);
     const [isCharacterAnimationStarted, setIsCharacterAnimationStarted] = useState(false);
     const [isCharacterAnimationFinished, setIsCharacterAnimationFinished] = useState(false);
     const [isContentAnimationFinished, setIsContentAnimationFinished] = useState(false);
@@ -41,10 +41,10 @@ function Skills({ onSkillsComplete }) {
     useEffect(() => {
         const handleScroll = () => {
             const skills = document.querySelector('.skills');
-            const isSkillsElementVisible = skills.getBoundingClientRect().bottom <= window.innerHeight;
+            const isSkillsVisible = skills.getBoundingClientRect().bottom <= window.innerHeight;
 
-            if (isSkillsElementVisible) {
-                setIsSkillsElementVisible(isSkillsElementVisible);
+            if (isSkillsVisible) {
+                setIsSkillsVisible(isSkillsVisible);
             }
         };
 
@@ -54,7 +54,7 @@ function Skills({ onSkillsComplete }) {
         };
     }, []);
 
-    if (isSkillsElementVisible && isCharacterAnimationFinished && isContentAnimationFinished && isTitleAnimationFinished) {
+    if (isSkillsVisible && isCharacterAnimationFinished && isContentAnimationFinished && isTitleAnimationFinished) {
         onSkillsComplete(true);
     }
 
@@ -77,22 +77,57 @@ function Skills({ onSkillsComplete }) {
     return (
         <>
             <section className="skills">
-                <div onAnimationEnd={handleContentAnimationEnd} className={`content ${isSkillsElementVisible && isCharacterAnimationFinished ? 'animate' : ''}`}>
+                <div onAnimationEnd={handleContentAnimationEnd} className={`content ${isSkillsVisible && isCharacterAnimationFinished ? 'animate' : ''}`}>
+                    <div className={`list ${isContentAnimationFinished ? 'animate' : ''}`}>
+                        <div>
+                            <h3>MORE</h3>
+                            <ul>
+                                <li>Linux, Windows</li>
+                                <li>Git, Github</li>
+                                <li>Machine Learning</li>
+                                <li>Data Analysis</li>
+                                <li>Pandas, Numpy, Matplotlib, Plotly</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3>BASIC KNOWLEDGE</h3>
+                            <ul>
+                                <li>C++&nbsp;<img src={my_cpp} alt="cpp" /></li>
+                                <li>C#&nbsp;<img src={my_csharp} alt="csharp" /></li>
+                                <li>Bootstrap&nbsp;<img src={my_bootstrap} alt="bootstrap" /></li>
+                                <li>JQuery&nbsp;<img src={my_jquery} alt="jquery" /></li>
+                                <li>React&nbsp;<img src={my_react} alt="react" /></li>
+                                <li>Flask&nbsp;<img src={my_flask} alt="flask" /></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3>ADVANCED KNOWLEDGE</h3>
+                            <ul>
+                                <li>HTML&nbsp;<img src={my_html} alt="html" /></li>
+                                <li>CSS&nbsp;<img src={my_css} alt="css" /></li>
+                                <li>JavaScript&nbsp;<img src={my_js} alt="javascript" /></li>
+                                <li>Python&nbsp;<img src={my_python} alt="python" /></li>
+                                <li>SQL&nbsp;<img src={my_sql} alt="sql" /></li>
+                                <li>Django&nbsp;<img src={my_django} alt="django" /></li>
+                                <li>Sqlite3&nbsp;<img src={my_sqlite} alt="sqlite3" />, MySQL&nbsp;<img src={my_mysql} alt="mysql" /></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div onAnimationEnd={handleTitleAnimationEnd} className={`title ${isSkillsElementVisible && isCharacterAnimationFinished ? 'animate' : ''}`}>
+                <div onAnimationEnd={handleTitleAnimationEnd} className={`title ${isSkillsVisible && isCharacterAnimationFinished ? 'animate' : ''}`}>
                     <h2>SKILLS</h2>
                 </div>
-                <div onAnimationStart={handleCharacterAnimationStart} onAnimationEnd={handleCharacterAnimationEnd} className={`character ${isSkillsElementVisible ? 'animate' : ''}`}>
+                <div onAnimationStart={handleCharacterAnimationStart} onAnimationEnd={handleCharacterAnimationEnd} className={`character ${isSkillsVisible ? 'animate' : ''}`}>
                     <img src={skills_character} alt="" />
-                    <div className={`${isSkillsElementVisible && isCharacterAnimationStarted ? 'active' : ''}`}></div>
+                    <div className={`${isSkillsVisible && isCharacterAnimationStarted ? 'animate' : ''}`}></div>
                 </div>
             </section>
         </>
     );
 }
 
-function Achievements({ onAchievementsComplete }) {
-    const [isAchievementsElementVisible, setIsAchievementsElementVisible] = useState(false);
+function Achievements({ /*onAchievementsComplete*/ }) {
+    const [isAchievementsVisible, setIsAchievementsVisible] = useState(true);
     const [isCharacterAnimationStarted, setIsCharacterAnimationStarted] = useState(false);
     const [isCharacterAnimationFinished, setIsCharacterAnimationFinished] = useState(false);
     const [isContentAnimationFinished, setIsContentAnimationFinished] = useState(false);
@@ -101,10 +136,10 @@ function Achievements({ onAchievementsComplete }) {
     useEffect(() => {
         const handleScroll = () => {
             const achievements = document.querySelector('.achievements');
-            const isAchievementsElementVisible = achievements.getBoundingClientRect().bottom <= window.innerHeight;
+            const isAchievementsVisible = achievements.getBoundingClientRect().bottom <= window.innerHeight;
 
-            if (isAchievementsElementVisible) {
-                setIsAchievementsElementVisible(isAchievementsElementVisible);
+            if (isAchievementsVisible) {
+                setIsAchievementsVisible(isAchievementsVisible);
             }
         };
 
@@ -114,9 +149,11 @@ function Achievements({ onAchievementsComplete }) {
         };
     }, []);
 
-    if (isAchievementsElementVisible && isCharacterAnimationFinished && isContentAnimationFinished && isTitleAnimationFinished) {
+    /*
+    if (isAchievementsVisible && isCharacterAnimationFinished && isContentAnimationFinished && isTitleAnimationFinished) {
         onAchievementsComplete(true);
     }
+    */
 
     const handleCharacterAnimationStart = () => {
         setIsCharacterAnimationStarted(true);
@@ -134,17 +171,54 @@ function Achievements({ onAchievementsComplete }) {
         setIsTitleAnimationFinished(true);
     }
 
+
+    function Slider() {
+        const sliderItems = [
+            { img: introduction_to_html, name: 'Introduction to HTML Certificate' },
+            { img: introduction_to_css, name: 'Introduction to CSS Certificate' },
+            { img: introduction_to_javascript, name: 'Introduction to JavaScript Certificate' },
+            { img: javascript_intermediate, name: 'JavaScript Intermediate Certificate' },
+            { img: the_great_hackathon, name: 'The Great Hackathon Certificate' },
+        ]
+
+        let currentIndex = 0;
+
+        const handleNext = () => {
+            currentIndex = (currentIndex + 1) % sliderItems.length;
+        };
+
+        const handlePrev = () => {
+            currentIndex = (currentIndex - 1 + sliderItems.length) % sliderItems.length;
+        };
+
+        return (
+            <div className="list">
+                <button className="prev" onClick={handlePrev} >
+                    <i className="fa fa-angle-double-left"></i>
+                </button>
+                <div className="items">
+                    <img src={sliderItems[currentIndex].img} alt={sliderItems[currentIndex].name} />
+                </div>
+                <button className="next" onClick={handleNext}>
+                    <i className="fa fa-angle-double-right"></i>
+                </button>
+            </div>
+        );
+    }
+
+
     return (
         <>
             <section className="achievements">
-                <div onAnimationEnd={handleTitleAnimationEnd} className={`title ${isAchievementsElementVisible && isCharacterAnimationFinished ? 'animate' : ''}`}>
+                <div onAnimationEnd={handleTitleAnimationEnd} className={`title ${isAchievementsVisible && isCharacterAnimationFinished ? 'animate' : ''}`}>
                     <h2>ACHIEVEMENTS</h2>
                 </div>
-                <div onAnimationEnd={handleContentAnimationEnd} className={`content ${isAchievementsElementVisible && isCharacterAnimationFinished ? 'animate' : ''}`}>
+                <div onAnimationEnd={handleContentAnimationEnd} className={`content ${isAchievementsVisible && isCharacterAnimationFinished ? 'animate' : ''}`}>
+                    <Slider />
                 </div>
-                <div onAnimationStart={handleCharacterAnimationStart} onAnimationEnd={handleCharacterAnimationEnd} className={`character ${isAchievementsElementVisible ? 'animate' : ''}`}>
+                <div onAnimationStart={handleCharacterAnimationStart} onAnimationEnd={handleCharacterAnimationEnd} className={`character ${isAchievementsVisible ? 'animate' : ''}`}>
                     <img src={achievements_character} alt="" />
-                    <div className={`${isAchievementsElementVisible && isCharacterAnimationStarted ? 'active' : ''}`}></div>
+                    <div className={`${isAchievementsVisible && isCharacterAnimationStarted ? 'animate' : ''}`}></div>
                 </div>
             </section>
         </>
@@ -152,7 +226,7 @@ function Achievements({ onAchievementsComplete }) {
 }
 
 function Contact() {
-    const [isContactElementVisible, setIsContactElementVisible] = useState(false);
+    const [isContactVisible, setIsContactVisible] = useState(false);
     const [isCardAnimationFinished, setIsCardAnimationFinished] = useState(false);
     const [isDetailClicked, setIsDetailClicked] = useState(false);
     const [isMessageClicked, setIsMessageClicked] = useState(false);
@@ -160,10 +234,10 @@ function Contact() {
     useEffect(() => {
         const handleScroll = () => {
             const contact = document.querySelector('.contact');
-            const isContactElementVisible = contact.getBoundingClientRect().bottom <= window.innerHeight;
+            const isContactVisible = contact.getBoundingClientRect().bottom <= window.innerHeight;
 
-            if (isContactElementVisible) {
-                setIsContactElementVisible(isContactElementVisible);
+            if (isContactVisible) {
+                setIsContactVisible(isContactVisible);
             }
         };
 
@@ -191,7 +265,7 @@ function Contact() {
         }
     };
 
-    const handleMessageCloseClick = () => {
+    const handleMessageClose = () => {
         setIsMessageClicked(!isMessageClicked);
     };
 
@@ -247,7 +321,7 @@ function Contact() {
         return (
             <>
                 <div className={`message ${isMessageClicked && isCardAnimationFinished ? 'entrance' : 'exit'}`}>
-                    <button onClick={handleMessageCloseClick} className='close'>&times;</button>
+                    <button onClick={handleMessageClose} className='close'>&times;</button>
                     <h2>Hi! Let's connect</h2>
                     <form action="" onSubmit={handleSubmit}>
                         {formFields.map((field) => (
@@ -270,12 +344,12 @@ function Contact() {
         <>
             <section className="contact">
                 <div className='contact-top'>
-                    <div onAnimationEnd={handleCardAnimationEnd} className={`card ${isContactElementVisible ? 'animate' : ''}`}>
+                    <div onAnimationEnd={handleCardAnimationEnd} className={`card ${isContactVisible ? 'animate' : ''}`}>
                         <div className='card-top'>
                             <p>
                                 Skilled and motivated computer programmer and developer, knowledgeable in web development and data science, prioritizing to develop high-quality programs and organized codes. A good communicator with excellent problem-solving skills and a passion for continuous learning.
                             </p>
-                            <img src={profile} alt="" />
+                            <img src={my_profile} alt="" />
                         </div>
                         <div className='card-bottom'>
                             <h2>JOHN EBRIAN S. MANALO</h2>
@@ -365,4 +439,4 @@ function App() {
     );
 }
 
-export default Skills;
+export default Achievements;

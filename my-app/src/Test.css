@@ -1,56 +1,49 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.Test {
+.test {
     background-color: dimgray;
     width: 100vw;
     height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.Test .content1 {
-    background-color: darkblue;
-    width: 40%;
-    height: 40%;
+.slider {
+    background-color: gray;
+    width: 90%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    overflow: hidden;
 }
 
-@keyframes test-content1-entrance {
-    from {
-        transform: translateX(-100%);
-    }
-    to {
-        transform: translateX(0);
-    }
+.items {
+    position: relative;
+    background-color: orange;
+    flex: 7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.test-content1-entrance {
-    animation: test-content1-entrance 1s ease 1s forwards;
-}
-
-.Test .content2 {
-    background-color: darkorange;
-    width: 40%;
-    height: 40%;
-}
-
-@keyframes test-content2-entrance {
-    from {
-        transform: translateX(-100%);
-    }
-    to {
-        transform: translateX(0);
-    }
-}
-
-.test-content2-entrance {
-    animation: test-content2-entrance 1s ease 1s forwards;
-}
-
-.Test button {
+.items img {
     position: absolute;
-    bottom: 10px;
-    left: calc(50% - 20px);
-    padding: 20px 40px;
+    width: 70%;
+    height: 80%;
+}
+
+.buttons {
+    background-color: darkblue;
+    flex: 1;
+    display: flex;
+    gap: 5px;
+}
+
+.buttons .next,
+.buttons .prev {
+    flex: 1;
+    background-color: blue;
+    color: black;
+    font-size: 40px;
+    border: none;
 }

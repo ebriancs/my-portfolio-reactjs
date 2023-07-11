@@ -1,6 +1,6 @@
 import './App.css';
-import './Test.css';
-import { my_profile, skills_character, achievements_character, my_html, my_css, my_js, my_python, my_sql, my_cpp, my_csharp, my_bootstrap, my_jquery, my_react, my_django, my_flask, my_sqlite, my_mysql, the_great_hackathon, introduction_to_html, introduction_to_css, introduction_to_javascript, javascript_intermediate } from '.';
+//import './Test.css';
+import { my_profile, my_logo, skills_character, achievements_character, my_html, my_css, my_js, my_python, my_sql, my_cpp, my_csharp, my_bootstrap, my_jquery, my_react, my_django, my_flask, my_sqlite, my_mysql, the_great_hackathon, introduction_to_html, introduction_to_css, introduction_to_javascript, javascript_intermediate } from '.';
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useSpring, animated } from 'react-spring';
@@ -10,22 +10,72 @@ function Navigation() {
     return (
         <>
             <nav className="navigation">
+                <a className='logo' href="/"><img src={my_logo} alt="myLogo" /></a>
                 <ul>
-                    <li><a href="">myContact</a></li>
-                    <li><a href="">myAchievements</a></li>
-                    <li><a href="">mySkills</a></li>
-                    <li><a href="">Home</a></li>
+                    <li><a href="#myContact">myContact</a></li>
+                    <li><a href="#myAchievements">myAchievements</a></li>
+                    <li><a href="#mySkills">mySkills</a></li>
+                    <li><a href="/">Home</a></li>
                 </ul>
             </nav>
         </>
     );
 }
 
-function Introduction() {
+function Introduction({ onIntroductionComplete }) {
+    const words = ['Programmer!', 'Developer!', 'Data Scientist!'];
+    const [wordIndex, setWordIndex] = useState(0);
+    const [offset, setOffset] = useState(0);
+    const [forwards, setForwards] = useState(true);
+    const [skipCount, setSkipCount] = useState(0);
+    const skipDelay = 20;
+    const speed = 80;
+
+    useEffect(() => {
+        const wordFlick = setInterval(() => {
+            if (forwards) {
+                if (offset >= words[wordIndex].length) {
+                    setSkipCount((prevCount) => prevCount + 1);
+                    if (skipCount === skipDelay) {
+                        setForwards(false);
+                        setSkipCount(0);
+                    }
+                }
+            } else {
+                if (offset === 0) {
+                    setForwards(true);
+                    setWordIndex((prevIndex) => (prevIndex + 1) % words.length);
+                }
+            }
+            const part = words[wordIndex].substr(0, offset);
+            if (skipCount === 0) {
+                if (forwards) {
+                    setOffset((prevOffset) => prevOffset + 1);
+                } else {
+                    setOffset((prevOffset) => prevOffset - 1);
+                }
+            }
+        }, speed);
+
+        return () => {
+            clearInterval(wordFlick);
+        };
+    }, [wordIndex, offset, forwards, skipCount, words]);
+
+    const handlePAnimationEnd = () => {
+        onIntroductionComplete(true);
+    };
+
     return (
         <>
             <section className="introduction">
-                <div className="content"></div>
+                <div className="content">
+                    <h1>EBRIAN</h1>
+                    <p onAnimationEnd={handlePAnimationEnd}>
+                        <span>I'm a </span>&nbsp;<span>{words[wordIndex].substr(0, offset)}</span>
+                        <span>|</span>
+                    </p>
+                </div>
             </section>
         </>
     );
@@ -76,7 +126,7 @@ function Skills({ onSkillsComplete }) {
 
     return (
         <>
-            <section className="skills">
+            <section id='mySkills' className="skills">
                 <div onAnimationEnd={handleContentAnimationEnd} className={`content ${isSkillsVisible && isCharacterAnimationFinished ? 'animate' : ''}`}>
                     <div className={`list ${isContentAnimationFinished ? 'animate' : ''}`}>
                         <div>
@@ -96,7 +146,6 @@ function Skills({ onSkillsComplete }) {
                                 <li>C#&nbsp;<img src={my_csharp} alt="csharp" /></li>
                                 <li>Bootstrap&nbsp;<img src={my_bootstrap} alt="bootstrap" /></li>
                                 <li>JQuery&nbsp;<img src={my_jquery} alt="jquery" /></li>
-                                <li>React&nbsp;<img src={my_react} alt="react" /></li>
                                 <li>Flask&nbsp;<img src={my_flask} alt="flask" /></li>
                             </ul>
                         </div>
@@ -108,6 +157,7 @@ function Skills({ onSkillsComplete }) {
                                 <li>JavaScript&nbsp;<img src={my_js} alt="javascript" /></li>
                                 <li>Python&nbsp;<img src={my_python} alt="python" /></li>
                                 <li>SQL&nbsp;<img src={my_sql} alt="sql" /></li>
+                                <li>React&nbsp;<img src={my_react} alt="react" /></li>
                                 <li>Django&nbsp;<img src={my_django} alt="django" /></li>
                                 <li>Sqlite3&nbsp;<img src={my_sqlite} alt="sqlite3" />, MySQL&nbsp;<img src={my_mysql} alt="mysql" /></li>
                             </ul>
@@ -126,8 +176,8 @@ function Skills({ onSkillsComplete }) {
     );
 }
 
-function Achievements({ /*onAchievementsComplete*/ }) {
-    const [isAchievementsVisible, setIsAchievementsVisible] = useState(true);
+function Achievements({ onAchievementsComplete }) {
+    const [isAchievementsVisible, setIsAchievementsVisible] = useState(false);
     const [isCharacterAnimationStarted, setIsCharacterAnimationStarted] = useState(false);
     const [isCharacterAnimationFinished, setIsCharacterAnimationFinished] = useState(false);
     const [isContentAnimationFinished, setIsContentAnimationFinished] = useState(false);
@@ -149,11 +199,9 @@ function Achievements({ /*onAchievementsComplete*/ }) {
         };
     }, []);
 
-    /*
     if (isAchievementsVisible && isCharacterAnimationFinished && isContentAnimationFinished && isTitleAnimationFinished) {
         onAchievementsComplete(true);
     }
-    */
 
     const handleCharacterAnimationStart = () => {
         setIsCharacterAnimationStarted(true);
@@ -176,32 +224,52 @@ function Achievements({ /*onAchievementsComplete*/ }) {
         const sliderItems = [
             { img: introduction_to_html, name: 'Introduction to HTML Certificate' },
             { img: introduction_to_css, name: 'Introduction to CSS Certificate' },
+            { img: the_great_hackathon, name: 'The Great Hackathon Certificate' },
             { img: introduction_to_javascript, name: 'Introduction to JavaScript Certificate' },
             { img: javascript_intermediate, name: 'JavaScript Intermediate Certificate' },
-            { img: the_great_hackathon, name: 'The Great Hackathon Certificate' },
         ]
 
-        let currentIndex = 0;
+        const [currentIndex, setCurrentIndex] = useState(Math.floor(sliderItems.length / 2));
 
         const handleNext = () => {
-            currentIndex = (currentIndex + 1) % sliderItems.length;
+            setCurrentIndex((prevIndex) => (prevIndex + 1) % sliderItems.length);
         };
 
         const handlePrev = () => {
-            currentIndex = (currentIndex - 1 + sliderItems.length) % sliderItems.length;
+            setCurrentIndex((nextIndex) => (nextIndex - 1 + sliderItems.length) % sliderItems.length);
+        };
+
+        const itemStyles = (index) => {
+            const distance = Math.abs(index - currentIndex);
+            const translateX = (index - currentIndex) * 25;
+            const scale = index === currentIndex ? 1 : 0.8 - distance * 0.05;
+            const perspective = index === currentIndex ? '' : 'perspective(200px)';
+            const rotateY = index === currentIndex ? '' : index < currentIndex ? 'rotateY(5deg)' : 'rotateY(-5deg)';
+
+            return {
+                transform: `translatex(${translateX}%) scale(${scale}) ${perspective} ${rotateY}`,
+                zIndex: sliderItems.length - distance,
+                filter: index === currentIndex ? 'none' : 'blur(1px)',
+                opacity: index === currentIndex ? '1' : '0.9',
+                transition: 'transform 0.3s ease-in-out, z-index 0.3s, filter 0.3s',
+            };
         };
 
         return (
-            <div className="list">
-                <button className="prev" onClick={handlePrev} >
-                    <i className="fa fa-angle-double-left"></i>
-                </button>
-                <div className="items">
-                    <img src={sliderItems[currentIndex].img} alt={sliderItems[currentIndex].name} />
+            <div className='slider'>
+                <div className='items'>
+                    {sliderItems.map((item, index) => (
+                        <img key={item.name} src={item.img} alt={item.name} style={itemStyles(index)} />
+                    ))}
                 </div>
-                <button className="next" onClick={handleNext}>
-                    <i className="fa fa-angle-double-right"></i>
-                </button>
+                <div className='buttons'>
+                    <button className="prev" onClick={handlePrev} >
+                        <i className="fa fa-angle-double-left"></i>
+                    </button>
+                    <button className="next" onClick={handleNext}>
+                        <i className="fa fa-angle-double-right"></i>
+                    </button>
+                </div>
             </div>
         );
     }
@@ -209,12 +277,12 @@ function Achievements({ /*onAchievementsComplete*/ }) {
 
     return (
         <>
-            <section className="achievements">
+            <section id='myAchievements' className="achievements">
                 <div onAnimationEnd={handleTitleAnimationEnd} className={`title ${isAchievementsVisible && isCharacterAnimationFinished ? 'animate' : ''}`}>
                     <h2>ACHIEVEMENTS</h2>
                 </div>
                 <div onAnimationEnd={handleContentAnimationEnd} className={`content ${isAchievementsVisible && isCharacterAnimationFinished ? 'animate' : ''}`}>
-                    <Slider />
+                    {isContentAnimationFinished && <Slider />}
                 </div>
                 <div onAnimationStart={handleCharacterAnimationStart} onAnimationEnd={handleCharacterAnimationEnd} className={`character ${isAchievementsVisible ? 'animate' : ''}`}>
                     <img src={achievements_character} alt="" />
@@ -322,7 +390,7 @@ function Contact() {
             <>
                 <div className={`message ${isMessageClicked && isCardAnimationFinished ? 'entrance' : 'exit'}`}>
                     <button onClick={handleMessageClose} className='close'>&times;</button>
-                    <h2>Hi! Let's connect</h2>
+                    <h2>Hi! Let's Connect</h2>
                     <form action="" onSubmit={handleSubmit}>
                         {formFields.map((field) => (
                             <div key={field.name}>
@@ -342,7 +410,7 @@ function Contact() {
 
     return (
         <>
-            <section className="contact">
+            <section id='myContact' className="contact">
                 <div className='contact-top'>
                     <div onAnimationEnd={handleCardAnimationEnd} className={`card ${isContactVisible ? 'animate' : ''}`}>
                         <div className='card-top'>
@@ -372,6 +440,7 @@ function Contact() {
                             <h4>REFERRENCE</h4>
                             <ul>
                                 <li><a href="https://www.vecteezy.com/free-png/cartoon" target='_blank'>Cartoon PNGs by Vecteezy</a></li>
+                                <li><a href="https://www.pngwing.com/" target='_blank'>Programming Icons by PNGWing</a></li>
                             </ul>
                         </div>
                         <div className='middle'>
@@ -398,7 +467,7 @@ function Contact() {
                             </ul>
                         </div>
                         <div className='end'>
-                            <p>Developed by John Ebrian S. Manalo</p>
+                            <p>Developed by John Ebrian S. Manalo, a web portfolio to showcase my skills, knowledge and passion in this field.</p>
                         </div>
                     </div>
                 </div>
@@ -407,9 +476,72 @@ function Contact() {
     );
 }
 
+function Test() {
+    const sliderItems = [
+        { img: introduction_to_html, name: 'Introduction to HTML Certificate' },
+        { img: introduction_to_css, name: 'Introduction to CSS Certificate' },
+        { img: the_great_hackathon, name: 'The Great Hackathon Certificate' },
+        { img: introduction_to_javascript, name: 'Introduction to JavaScript Certificate' },
+        { img: javascript_intermediate, name: 'JavaScript Intermediate Certificate' },
+    ]
+
+    const [currentIndex, setCurrentIndex] = useState(Math.floor(sliderItems.length / 2));
+
+    const handleNext = () => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % sliderItems.length);
+    };
+
+    const handlePrev = () => {
+        setCurrentIndex((nextIndex) => (nextIndex - 1 + sliderItems.length) % sliderItems.length);
+    };
+
+    const itemStyles = (index) => {
+        const distance = Math.abs(index - currentIndex);
+        const translateX = (index - currentIndex) * 25;
+        const scale = index === currentIndex ? 1 : 0.8 - distance * 0.05;
+        const perspective = index === currentIndex ? '' : 'perspective(200px)';
+        const rotateY = index === currentIndex ? '' : index < currentIndex ? 'rotateY(5deg)' : 'rotateY(-5deg)';
+
+        return {
+            transform: `translatex(${translateX}%) scale(${scale}) ${perspective} ${rotateY}`,
+            zIndex: sliderItems.length - distance,
+            filter: index === currentIndex ? 'none' : 'blur(1px)',
+            opacity: index === currentIndex ? '1' : '0.9',
+            transition: 'transform 0.3s ease-in-out, z-index 0.3s, filter 0.3s',
+        };
+    };
+
+    return (
+        <>
+            <div className='test'>
+                <div className='slider'>
+                    <div className='items'>
+                        {sliderItems.map((item, index) => (
+                            <img key={item.name} src={item.img} alt={item.name} style={itemStyles(index)} />
+                        ))}
+                    </div>
+                    <div className='buttons'>
+                        <button className="prev" onClick={handlePrev} >
+                            <i className="fa fa-angle-double-left"></i>
+                        </button>
+                        <button className="next" onClick={handleNext}>
+                            <i className="fa fa-angle-double-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+}
+
 function App() {
+    const [isIntroductionCompleted, setIsIntroductionCompleted] = useState(false);
     const [isSkillsCompleted, setIsSkillsCompleted] = useState(false);
     const [isAchievementsCompleted, setIsAchievementsCompleted] = useState(false);
+
+    const handleIntroductionComplete = (completed) => {
+        setIsIntroductionCompleted(completed);
+    };
 
     const handleSkillsComplete = (completed) => {
         setIsSkillsCompleted(completed);
@@ -426,8 +558,8 @@ function App() {
             </header>
 
             <main>
-                <Introduction />
-                <Skills onSkillsComplete={handleSkillsComplete} />
+                <Introduction onIntroductionComplete={handleIntroductionComplete} />
+                {isIntroductionCompleted && <Skills onSkillsComplete={handleSkillsComplete} />}
                 {isSkillsCompleted && <Achievements onAchievementsComplete={handleAchievementsComplete} />}
             </main>
 
@@ -439,4 +571,4 @@ function App() {
     );
 }
 
-export default Achievements;
+export default App;

@@ -131,11 +131,12 @@
 .introduction .content h1 {
     flex: 5;
     background-color: rgb(40, 40, 40);
-    font-size: 100px;
+    font-size: 6rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    letter-spacing: 25px;
+    letter-spacing: 2rem;
+    text-indent: 2rem;
     z-index: 1;
     border-radius: 5px 5px 0 0;
     box-shadow: 0px -4px 4px rgba(245, 245, 245, 0.2);

@@ -36,17 +36,33 @@
     overflow-x: hidden;
 }
 
-.spacing {
-    width: 100vh;
-    height: 15vh;
+/* LOADING */
+.loading {
+    background-color: rgb(30, 30, 30);
+    color: darkorange;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: xx-large;
+    opacity: 1;
+}
+
+.loading.exit {
+    animation: loading-exit 3s ease forwards;
+}
+
+@keyframes loading-exit {
+    to {
+        opacity: 0;
+    }
 }
 
 /* NAVIGATION */
 .navigation {
-    background-color: rgb(40, 40, 40);
     height: 20vh;
     display: flex;
-    border-bottom: 1px solid darkslategray;
 }
 
 .logo {
@@ -80,7 +96,7 @@
 .navigation ul li a {
     position: relative;
     color: slategray;
-    margin: 10px;
+    margin: 5px;
     padding: 15px 30px;
     text-decoration: none;
     cursor: pointer;
@@ -109,6 +125,7 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
+    margin-bottom: 5%;
 }
 
 .introduction .content h1 {
@@ -753,7 +770,9 @@
     transform: scale(1.2);
 }
 
+/* MESSAGE ICON, RESUME ICON, DETAILS ICON*/
 .contact .card-bottom li:nth-child(3) i:hover,
+.contact .card-bottom li:nth-child(4) i:hover,
 .contact .card-bottom li:last-child i:hover {
     opacity: 0.8;
     transform: scale(1.2);
@@ -879,10 +898,9 @@
     flex: 1 0 calc(50% - 5px);
 }
 
+/* SUBJECT INPUT, MESSAGE INPUT */
 .message form div:nth-child(3),
-/* SUBJECT INPUT */
 .message form div:nth-child(4) {
-    /* MESSAGE INPUT */
     flex: 1 0 100%;
 }
 
@@ -909,6 +927,55 @@
     font-size: small;
     border: 1px solid whitesmoke;
     border-radius: 3px;
+}
+
+/* RESUME */
+.resume {
+    position: absolute;
+    bottom: 5%;
+    left: 2.5%;
+    width: 40%;
+    height: 80%;
+    background-color: transparent;
+    border-radius: 5px;
+    display: none;
+    gap: 5px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.resume.entrance {
+    display: block;
+    transform: scale(0.9);
+    opacity: 0;
+    animation: resume-entrance 0.5s ease forwards;
+}
+
+@keyframes resume-entrance {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.resume embed {
+    width: 100%;
+    height: 100%;
+}
+
+.resume .close {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background-color: transparent;
+    font-size: x-large;
+    font-weight: bold;
+    border: none;
+    transition: transform 0.3s ease;
+}
+
+.resume .close:hover {
+    transform: scale(1.2);
 }
 
 /* CONTACT BOTTOM */

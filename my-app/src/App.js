@@ -6,6 +6,35 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useSpring, animated } from 'react-spring';
 
 // FUNCTIONS
+function Loading({ onLoadingComplete }) {
+    const [dots, setDots] = useState('.');
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setDots((prevDots) => {
+                if (prevDots === '...') {
+                    return '.';
+                }
+                else {
+                    return prevDots + '.';
+                }
+            });
+        }, 500);
+
+        return () => {
+            clearInterval(timer);
+        }
+    }, []);
+
+    return (
+        <>
+            <div className={`loading ${onLoadingComplete ? 'exit' : ''}`}>
+                LOADING <span>{dots}</span>
+            </div>
+        </>
+    );
+}
+
 function Navigation() {
     return (
         <>
@@ -298,6 +327,7 @@ function Contact() {
     const [isCardAnimationFinished, setIsCardAnimationFinished] = useState(false);
     const [isDetailClicked, setIsDetailClicked] = useState(false);
     const [isMessageClicked, setIsMessageClicked] = useState(false);
+    const [isResumeClicked, setIsResumeClicked] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -323,6 +353,7 @@ function Contact() {
         if (!isDetailClicked) {
             setIsDetailClicked(!isDetailClicked);
             setIsMessageClicked(false);
+            setIsResumeClicked(false);
         }
     };
 
@@ -330,6 +361,7 @@ function Contact() {
         if (!isMessageClicked) {
             setIsMessageClicked(!isMessageClicked);
             setIsDetailClicked(false);
+            setIsResumeClicked(false);
         }
     };
 
@@ -337,13 +369,22 @@ function Contact() {
         setIsMessageClicked(!isMessageClicked);
     };
 
+    const handleResumeClick = () => {
+        if (!isResumeClicked) {
+            setIsResumeClicked(!isResumeClicked);
+            setIsMessageClicked(false);
+            setIsDetailClicked(false);
+        }
+    };
+
     function Details() {
         const detailsData = [
             { label: 'Name', value: 'John Ebrian S. Manalo' },
+            { label: 'Degree', value: 'BS Computer Science' },
             { label: 'Email', value: 'ebrian.cs@gmail.com' },
             { label: 'Phone', value: '+639267067396' },
             { label: 'Gender', value: 'M' },
-            { label: 'Birthdate', value: 'January 10, 2001' },
+            { label: 'Birth', value: 'January 10, 2001' },
             { label: 'Height', value: '173 cm' },
             { label: 'Weight', value: '60 kg' }
         ];
@@ -408,6 +449,16 @@ function Contact() {
         );
     }
 
+    function Resume() {
+        return (
+            <>
+                <div className={`resume ${isResumeClicked && isCardAnimationFinished ? 'entrance' : ''}`}>
+                    <embed src={process.env.PUBLIC_URL + '/pdfs/johnebrian_manalo_resume.pdf'} type="application/pdf" />
+                </div>
+            </>
+        );
+    }
+
     return (
         <>
             <section id='myContact' className="contact">
@@ -425,14 +476,16 @@ function Contact() {
                             <ul>
                                 <li><a href='https://www.linkedin.com/in/ebriancs/' target='_blank' className='fa fa-linkedin-square'></a>LINKEDIN</li>
                                 <li><a href='https://github.com/ebriancs' target='_blank' className='fa fa-github'></a>GITHUB</li>
-                                <li><i onClick={handleMessageClick} className='fa fa-comments-o'></i>MESSAGE</li>
+                                {/*<li><i onClick={handleMessageClick} className='fa fa-comments-o'></i>MESSAGE</li>*/}
+                                <li><i onClick={handleResumeClick} className='fa fa-file-text'></i>RESUME</li>
                                 <li><i onClick={handleDetailClick} className='fa fa-address-card'></i>DETAILS</li>
                             </ul>
                         </div>
                     </div>
 
                     <Details />
-                    <Message />
+                    {/*<Message />*/}
+                    <Resume />
                 </div>
                 <div className='contact-bottom'>
                     <div className='referrence'>
@@ -476,68 +529,30 @@ function Contact() {
     );
 }
 
-function Test() {
-    const sliderItems = [
-        { img: introduction_to_html, name: 'Introduction to HTML Certificate' },
-        { img: introduction_to_css, name: 'Introduction to CSS Certificate' },
-        { img: the_great_hackathon, name: 'The Great Hackathon Certificate' },
-        { img: introduction_to_javascript, name: 'Introduction to JavaScript Certificate' },
-        { img: javascript_intermediate, name: 'JavaScript Intermediate Certificate' },
-    ]
-
-    const [currentIndex, setCurrentIndex] = useState(Math.floor(sliderItems.length / 2));
-
-    const handleNext = () => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % sliderItems.length);
-    };
-
-    const handlePrev = () => {
-        setCurrentIndex((nextIndex) => (nextIndex - 1 + sliderItems.length) % sliderItems.length);
-    };
-
-    const itemStyles = (index) => {
-        const distance = Math.abs(index - currentIndex);
-        const translateX = (index - currentIndex) * 25;
-        const scale = index === currentIndex ? 1 : 0.8 - distance * 0.05;
-        const perspective = index === currentIndex ? '' : 'perspective(200px)';
-        const rotateY = index === currentIndex ? '' : index < currentIndex ? 'rotateY(5deg)' : 'rotateY(-5deg)';
-
-        return {
-            transform: `translatex(${translateX}%) scale(${scale}) ${perspective} ${rotateY}`,
-            zIndex: sliderItems.length - distance,
-            filter: index === currentIndex ? 'none' : 'blur(1px)',
-            opacity: index === currentIndex ? '1' : '0.9',
-            transition: 'transform 0.3s ease-in-out, z-index 0.3s, filter 0.3s',
-        };
-    };
-
-    return (
-        <>
-            <div className='test'>
-                <div className='slider'>
-                    <div className='items'>
-                        {sliderItems.map((item, index) => (
-                            <img key={item.name} src={item.img} alt={item.name} style={itemStyles(index)} />
-                        ))}
-                    </div>
-                    <div className='buttons'>
-                        <button className="prev" onClick={handlePrev} >
-                            <i className="fa fa-angle-double-left"></i>
-                        </button>
-                        <button className="next" onClick={handleNext}>
-                            <i className="fa fa-angle-double-right"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </>
-    );
-}
-
 function App() {
+    const [isLoading, setIsLoading] = useState(true);
+    const [isLoadingCompleted, setIsLoadingCompleted] = useState(false);
     const [isIntroductionCompleted, setIsIntroductionCompleted] = useState(false);
     const [isSkillsCompleted, setIsSkillsCompleted] = useState(false);
     const [isAchievementsCompleted, setIsAchievementsCompleted] = useState(false);
+
+    useEffect(() => {
+        window.addEventListener('load', handleLoading);
+
+        return () => {
+            window.removeEventListener('load', handleLoading);
+        }
+    }, []);
+
+    const handleLoading = () => {
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 2000);
+    }
+
+    const handleLoadingComplete = () => {
+        setIsLoadingCompleted(isLoading)
+    };
 
     const handleIntroductionComplete = (completed) => {
         setIsIntroductionCompleted(completed);
@@ -553,20 +568,23 @@ function App() {
 
     return (
         <div className='app'>
-            <header>
-                <Navigation />
-            </header>
+            {isLoading ? (<Loading onLoadingComplete={handleLoadingComplete} />) : (
+                <>
+                    <header>
+                        <Navigation />
+                    </header>
 
-            <main>
-                <Introduction onIntroductionComplete={handleIntroductionComplete} />
-                {isIntroductionCompleted && <Skills onSkillsComplete={handleSkillsComplete} />}
-                {isSkillsCompleted && <Achievements onAchievementsComplete={handleAchievementsComplete} />}
-            </main>
+                    <main>
+                        <Introduction onIntroductionComplete={handleIntroductionComplete} />
+                        {isIntroductionCompleted && <Skills onSkillsComplete={handleSkillsComplete} />}
+                        {isSkillsCompleted && <Achievements onAchievementsComplete={handleAchievementsComplete} />}
+                    </main>
 
-            <footer>
-                {isAchievementsCompleted && <Contact />}
-            </footer>
-
+                    <footer>
+                        {isAchievementsCompleted && <Contact />}
+                    </footer>
+                </>
+            )}
         </div>
     );
 }

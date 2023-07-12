@@ -49,6 +49,17 @@
     opacity: 1;
 }
 
+/* SCREEN */
+.hide-content {
+    background-color: rgb(30, 30, 30);
+    color: darkorange;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .loading.exit {
     animation: loading-exit 3s ease forwards;
 }
@@ -73,7 +84,7 @@
 }
 
 .logo img {
-    width: 35%;
+    width: 40%;
     height: auto;
     transition: transform 0.3s ease;
 }

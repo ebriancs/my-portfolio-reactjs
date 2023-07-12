@@ -2,7 +2,7 @@ import './App.css';
 //import './Test.css';
 import { my_profile, my_logo, skills_character, achievements_character, my_html, my_css, my_js, my_python, my_sql, my_cpp, my_csharp, my_bootstrap, my_jquery, my_react, my_django, my_flask, my_sqlite, my_mysql, the_great_hackathon, introduction_to_html, introduction_to_css, introduction_to_javascript, javascript_intermediate } from '.';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useSpring, animated } from 'react-spring';
 
 // FUNCTIONS
@@ -30,6 +30,16 @@ function Loading({ onLoadingComplete }) {
         <>
             <div className={`loading ${onLoadingComplete ? 'exit' : ''}`}>
                 LOADING <span>{dots}</span>
+            </div>
+        </>
+    );
+}
+
+function HideContent() {
+    return (
+        <>
+            <div className='hide-content'>
+                Currently not available on your device
             </div>
         </>
     );
@@ -535,6 +545,30 @@ function App() {
     const [isIntroductionCompleted, setIsIntroductionCompleted] = useState(false);
     const [isSkillsCompleted, setIsSkillsCompleted] = useState(false);
     const [isAchievementsCompleted, setIsAchievementsCompleted] = useState(false);
+    const [showContent, setShowContent] = useState(true);
+
+    useEffect(() => {
+        const handleResize = () => {
+            const minWidth = 1200;
+            const minHeight = 800;
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+
+            if (screenWidth < minWidth || screenHeight < minHeight) {
+                setShowContent(false);
+            } else {
+                setShowContent(true);
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        handleResize();
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     useEffect(() => {
         window.addEventListener('load', handleLoading);
@@ -568,7 +602,9 @@ function App() {
 
     return (
         <div className='app'>
-            {isLoading ? (<Loading onLoadingComplete={handleLoadingComplete} />) : (
+            {isLoading ? (
+                <Loading onLoadingComplete={handleLoadingComplete} />
+            ) : showContent ? (
                 <>
                     <header>
                         <Navigation />
@@ -584,6 +620,8 @@ function App() {
                         {isAchievementsCompleted && <Contact />}
                     </footer>
                 </>
+            ) : (
+                <HideContent />
             )}
         </div>
     );

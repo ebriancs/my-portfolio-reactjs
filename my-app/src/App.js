@@ -1,6 +1,6 @@
 import './App.css';
 //import './Test.css';
-import { my_profile, my_logo, skills_character, achievements_character, my_html, my_css, my_js, my_python, my_sql, my_cpp, my_csharp, my_bootstrap, my_jquery, my_react, my_django, my_flask, my_sqlite, my_mysql, the_great_hackathon, introduction_to_html, introduction_to_css, introduction_to_javascript, javascript_intermediate } from '.';
+import { my_profile, my_logo, skills_character, achievements_character, my_html, my_css, my_js, my_python, my_sql, my_cpp, my_csharp, my_bootstrap, my_jquery, my_react, my_django, my_flask, my_sqlite, my_mysql, internship, the_great_hackathon, introduction_to_html, introduction_to_css, introduction_to_javascript, javascript_intermediate } from '.';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useSpring, animated } from 'react-spring';
@@ -198,7 +198,7 @@ function Skills({ onSkillsComplete }) {
                                 <li>SQL&nbsp;<img src={my_sql} alt="sql" /></li>
                                 <li>React&nbsp;<img src={my_react} alt="react" /></li>
                                 <li>Django&nbsp;<img src={my_django} alt="django" /></li>
-                                <li>Sqlite3&nbsp;<img src={my_sqlite} alt="sqlite3" />, MySQL&nbsp;<img src={my_mysql} alt="mysql" /></li>
+                                <li>SQLite&nbsp;<img src={my_sqlite} alt="sqlite" />, MySQL&nbsp;<img src={my_mysql} alt="mysql" /></li>
                             </ul>
                         </div>
                     </div>
@@ -263,6 +263,7 @@ function Achievements({ onAchievementsComplete }) {
         const sliderItems = [
             { img: introduction_to_html, name: 'Introduction to HTML Certificate' },
             { img: introduction_to_css, name: 'Introduction to CSS Certificate' },
+            { img: internship, name: 'On-the-job Training Certificate' },
             { img: the_great_hackathon, name: 'The Great Hackathon Certificate' },
             { img: introduction_to_javascript, name: 'Introduction to JavaScript Certificate' },
             { img: javascript_intermediate, name: 'JavaScript Intermediate Certificate' },

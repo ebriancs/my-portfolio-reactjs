@@ -550,7 +550,7 @@ function App() {
     useEffect(() => {
         const handleResize = () => {
             const minWidth = 1200;
-            const minHeight = 800;
+            const minHeight = 600;
             const screenWidth = window.innerWidth;
             const screenHeight = window.innerHeight;
 

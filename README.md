@@ -24,7 +24,7 @@ A web portfolio that serves as a collection of my works, achievements, and to sh
 
 ### Version Control
 - Git
-- GIthub
+- Github
 
 ### Code Editor/IDE
 - VSCode

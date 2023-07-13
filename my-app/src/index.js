@@ -18,6 +18,7 @@ import my_css from './images/skills/css.png';
 import my_js from './images/skills/javascript.png';
 import my_python from './images/skills/python.png';
 import my_sql from './images/skills/sql.png';
+import my_php from './images/skills/php.png';
 import my_cpp from './images/skills/cpp.png';
 import my_csharp from './images/skills/csharp.png';
 import my_bootstrap from './images/skills/bootstrap.png';
@@ -36,7 +37,7 @@ import introduction_to_css from './images/certificates/introduction_to_css.jpg';
 import introduction_to_javascript from './images/certificates/introduction_to_javascript.jpg';
 import javascript_intermediate from './images/certificates/javascript_intermediate.jpg';
 
-export { my_profile, my_logo, skills_character, achievements_character, my_html, my_css, my_js, my_python, my_sql, my_cpp, my_csharp, my_bootstrap, my_jquery, my_react, my_django, my_flask, my_sqlite, my_mysql, internship, the_great_hackathon, introduction_to_html, introduction_to_css, introduction_to_javascript, javascript_intermediate };
+export { my_profile, my_logo, skills_character, achievements_character, my_html, my_css, my_js, my_python, my_sql, my_php, my_cpp, my_csharp, my_bootstrap, my_jquery, my_react, my_django, my_flask, my_sqlite, my_mysql, internship, the_great_hackathon, introduction_to_html, introduction_to_css, introduction_to_javascript, javascript_intermediate };
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

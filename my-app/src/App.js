@@ -1,6 +1,6 @@
 import './App.css';
 //import './Test.css';
-import { my_profile, my_logo, skills_character, achievements_character, my_html, my_css, my_js, my_python, my_sql, my_cpp, my_csharp, my_bootstrap, my_jquery, my_react, my_django, my_flask, my_sqlite, my_mysql, internship, the_great_hackathon, introduction_to_html, introduction_to_css, introduction_to_javascript, javascript_intermediate } from '.';
+import { my_profile, my_logo, skills_character, achievements_character, my_html, my_css, my_js, my_python, my_sql, my_php, my_cpp, my_csharp, my_bootstrap, my_jquery, my_react, my_django, my_flask, my_sqlite, my_mysql, internship, the_great_hackathon, introduction_to_html, introduction_to_css, introduction_to_javascript, javascript_intermediate } from '.';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useSpring, animated } from 'react-spring';
@@ -181,6 +181,7 @@ function Skills({ onSkillsComplete }) {
                         <div>
                             <h3>BASIC KNOWLEDGE</h3>
                             <ul>
+                                <li>PHP&nbsp;<img src={my_php} alt="php" /></li>
                                 <li>C++&nbsp;<img src={my_cpp} alt="cpp" /></li>
                                 <li>C#&nbsp;<img src={my_csharp} alt="csharp" /></li>
                                 <li>Bootstrap&nbsp;<img src={my_bootstrap} alt="bootstrap" /></li>

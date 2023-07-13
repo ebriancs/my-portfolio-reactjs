@@ -2,8 +2,6 @@
 
 A web portfolio that serves as a collection of my works, achievements, and to showcase my skills, knowledge and passion in the field of computer programming & developing.
 
-## Development
-
 ### Domain
 - ebriancs.netlify.app
 

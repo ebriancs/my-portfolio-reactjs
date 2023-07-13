@@ -143,9 +143,11 @@ function Skills({ onSkillsComplete }) {
         };
     }, []);
 
-    if (isSkillsVisible && isCharacterAnimationFinished && isContentAnimationFinished && isTitleAnimationFinished) {
-        onSkillsComplete(true);
-    }
+    useEffect(() => {
+        if (isSkillsVisible && isCharacterAnimationFinished && isContentAnimationFinished && isTitleAnimationFinished) {
+            onSkillsComplete(true);
+        }
+    }, [onSkillsComplete, isSkillsVisible, isCharacterAnimationFinished, isContentAnimationFinished, isTitleAnimationFinished]);
 
     const handleCharacterAnimationStart = () => {
         setIsCharacterAnimationStarted(true);
@@ -239,9 +241,11 @@ function Achievements({ onAchievementsComplete }) {
         };
     }, []);
 
-    if (isAchievementsVisible && isCharacterAnimationFinished && isContentAnimationFinished && isTitleAnimationFinished) {
-        onAchievementsComplete(true);
-    }
+    useEffect(() => {
+        if (isAchievementsVisible && isCharacterAnimationFinished && isContentAnimationFinished && isTitleAnimationFinished) {
+            onAchievementsComplete(true);
+        }
+    }, [onAchievementsComplete, isAchievementsVisible, isCharacterAnimationFinished, isContentAnimationFinished, isTitleAnimationFinished]);
 
     const handleCharacterAnimationStart = () => {
         setIsCharacterAnimationStarted(true);
@@ -338,7 +342,7 @@ function Contact() {
     const [isContactVisible, setIsContactVisible] = useState(false);
     const [isCardAnimationFinished, setIsCardAnimationFinished] = useState(false);
     const [isDetailClicked, setIsDetailClicked] = useState(false);
-    const [isMessageClicked, setIsMessageClicked] = useState(false);
+    // const [isMessageClicked, setIsMessageClicked] = useState(false);
     const [isResumeClicked, setIsResumeClicked] = useState(false);
 
     useEffect(() => {
@@ -364,11 +368,12 @@ function Contact() {
     const handleDetailClick = () => {
         if (!isDetailClicked) {
             setIsDetailClicked(!isDetailClicked);
-            setIsMessageClicked(false);
+            // setIsMessageClicked(false);
             setIsResumeClicked(false);
         }
     };
 
+    /*
     const handleMessageClick = () => {
         if (!isMessageClicked) {
             setIsMessageClicked(!isMessageClicked);
@@ -380,11 +385,12 @@ function Contact() {
     const handleMessageClose = () => {
         setIsMessageClicked(!isMessageClicked);
     };
+    */
 
     const handleResumeClick = () => {
         if (!isResumeClicked) {
             setIsResumeClicked(!isResumeClicked);
-            setIsMessageClicked(false);
+            // setIsMessageClicked(false);
             setIsDetailClicked(false);
         }
     };
@@ -417,6 +423,7 @@ function Contact() {
         )
     }
 
+    /*
     function Message() {
         const [formData, setFormData] = useState([
             { name: 'Your name', email: '', subject: '', message: '' }
@@ -460,6 +467,7 @@ function Contact() {
             </>
         );
     }
+    */
 
     function Resume() {
         return (

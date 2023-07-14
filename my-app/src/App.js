@@ -1,7 +1,7 @@
 import './App.css';
 //import './Test.css';
 import { my_profile, my_logo, skills_character, achievements_character, my_html, my_css, my_js, my_python, my_sql, my_php, my_cpp, my_csharp, my_bootstrap, my_jquery, my_react, my_django, my_flask, my_sqlite, my_mysql, internship, the_great_hackathon, introduction_to_html, introduction_to_css, introduction_to_javascript, javascript_intermediate } from '.';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 // FUNCTIONS
 function Loading({ onLoadingComplete }) {
@@ -60,7 +60,7 @@ function Navigation() {
 }
 
 function Introduction({ onIntroductionComplete }) {
-    const words = ['Programmer!', 'Developer!', 'Data Scientist!'];
+    const words = useMemo(() => ['Programmer!', 'Developer!', 'Data Scientist!'], []);
     const [wordIndex, setWordIndex] = useState(0);
     const [offset, setOffset] = useState(0);
     const [forwards, setForwards] = useState(true);
@@ -84,7 +84,6 @@ function Introduction({ onIntroductionComplete }) {
                     setWordIndex((prevIndex) => (prevIndex + 1) % words.length);
                 }
             }
-            const part = words[wordIndex].substr(0, offset);
             if (skipCount === 0) {
                 if (forwards) {
                     setOffset((prevOffset) => prevOffset + 1);
@@ -494,11 +493,11 @@ function Contact() {
                             <h2>JOHN EBRIAN S. MANALO</h2>
                             <h4>BS Computer Science</h4>
                             <ul>
-                                <li><a href='https://www.linkedin.com/in/ebriancs/' target='_blank' className='fa fa-linkedin-square'></a>LINKEDIN</li>
-                                <li><a href='https://github.com/ebriancs' target='_blank' className='fa fa-github'></a>GITHUB</li>
+                                <li><a href='https://www.linkedin.com/in/ebriancs/' target='_blank' rel='noreferrer' aria-label='LinkedIn' className='fa fa-linkedin-square'></a>LINKEDIN</li>
+                                <li><a href='https://github.com/ebriancs' target='_blank' rel='noreferrer' aria-label='GitHub' className='fa fa-github'></a>GITHUB</li>
                                 {/*<li><i onClick={handleMessageClick} className='fa fa-comments-o'></i>MESSAGE</li>*/}
-                                <li><i onClick={handleResumeClick} className='fa fa-file-text'></i>RESUME</li>
-                                <li><i onClick={handleDetailClick} className='fa fa-address-card'></i>DETAILS</li>
+                                <li><i onClick={handleResumeClick} className='fa fa-file-text' aria-label='Resume'></i>RESUME</li>
+                                <li><i onClick={handleDetailClick} className='fa fa-address-card' aria-label='Details'></i>DETAILS</li>
                             </ul>
                         </div>
                     </div>
@@ -512,8 +511,8 @@ function Contact() {
                         <div className='left'>
                             <h4>REFERRENCE</h4>
                             <ul>
-                                <li><a href="https://www.vecteezy.com/free-png/cartoon" target='_blank'>Cartoon PNGs by Vecteezy</a></li>
-                                <li><a href="https://www.pngwing.com/" target='_blank'>Programming Icons by PNGWing</a></li>
+                                <li><a href="https://www.vecteezy.com/free-png/cartoon" target='_blank' rel='noreferrer'>Cartoon PNGs by Vecteezy</a></li>
+                                <li><a href="https://www.pngwing.com/" target='_blank' rel='noreferrer'>Programming Icons by PNGWing</a></li>
                             </ul>
                         </div>
                         <div className='middle'>
@@ -551,7 +550,6 @@ function Contact() {
 
 function App() {
     const [isLoading, setIsLoading] = useState(true);
-    const [isLoadingCompleted, setIsLoadingCompleted] = useState(false);
     const [isIntroductionCompleted, setIsIntroductionCompleted] = useState(false);
     const [isSkillsCompleted, setIsSkillsCompleted] = useState(false);
     const [isAchievementsCompleted, setIsAchievementsCompleted] = useState(false);
@@ -594,10 +592,6 @@ function App() {
         }, 2000);
     }
 
-    const handleLoadingComplete = () => {
-        setIsLoadingCompleted(isLoading)
-    };
-
     const handleIntroductionComplete = (completed) => {
         setIsIntroductionCompleted(completed);
     };
@@ -613,7 +607,7 @@ function App() {
     return (
         <div className='app'>
             {isLoading ? (
-                <Loading onLoadingComplete={handleLoadingComplete} />
+                <Loading onLoadingComplete={handleLoading} />
             ) : showContent ? (
                 <>
                     <header>

@@ -1,9 +1,7 @@
 import './App.css';
 //import './Test.css';
 import { my_profile, my_logo, skills_character, achievements_character, my_html, my_css, my_js, my_python, my_sql, my_php, my_cpp, my_csharp, my_bootstrap, my_jquery, my_react, my_django, my_flask, my_sqlite, my_mysql, internship, the_great_hackathon, introduction_to_html, introduction_to_css, introduction_to_javascript, javascript_intermediate } from '.';
-
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { useSpring, animated } from 'react-spring';
+import React, { useState, useEffect } from 'react';
 
 // FUNCTIONS
 function Loading({ onLoadingComplete }) {

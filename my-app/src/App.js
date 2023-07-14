@@ -4,35 +4,6 @@ import { my_profile, my_logo, skills_character, achievements_character, my_html,
 import React, { useState, useEffect, useMemo } from 'react';
 
 // FUNCTIONS
-function Loading({ onLoadingComplete }) {
-    const [dots, setDots] = useState('.');
-
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setDots((prevDots) => {
-                if (prevDots === '...') {
-                    return '.';
-                }
-                else {
-                    return prevDots + '.';
-                }
-            });
-        }, 500);
-
-        return () => {
-            clearInterval(timer);
-        }
-    }, []);
-
-    return (
-        <>
-            <div className={`loading ${onLoadingComplete ? 'exit' : ''}`}>
-                LOADING <span>{dots}</span>
-            </div>
-        </>
-    );
-}
-
 function HideContent() {
     return (
         <>
@@ -548,9 +519,36 @@ function Contact() {
     );
 }
 
+function Loading({ onLoadingComplete }) {
+    const [dots, setDots] = useState('.');
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setDots((prevDots) => {
+                if (prevDots === '...') {
+                    return '.';
+                }
+                else {
+                    return prevDots + '.';
+                }
+            });
+        }, 500);
+
+        return () => {
+            clearInterval(timer);
+        }
+    }, []);
+
+    return (
+        <>
+            <div className={`loading ${onLoadingComplete ? 'exit' : ''}`}>
+                LOADING <span>{dots}</span>
+            </div>
+        </>
+    );
+}
+
 function App() {
-    const [isLoading, setIsLoading] = useState(true);
-    const [isLoadingComplete, setIsLoadingComplete] = useState(false);
     const [isIntroductionCompleted, setIsIntroductionCompleted] = useState(false);
     const [isSkillsCompleted, setIsSkillsCompleted] = useState(false);
     const [isAchievementsCompleted, setIsAchievementsCompleted] = useState(false);
@@ -579,21 +577,6 @@ function App() {
         };
     }, []);
 
-    useEffect(() => {
-        const handleLoading = () => {
-            setTimeout(() => {
-                setIsLoading(false);
-                setIsLoadingComplete(true);
-            }, 2000);
-        };
-
-        window.addEventListener('load', handleLoading);
-
-        return () => {
-            window.removeEventListener('load', handleLoading);
-        };
-    }, []);
-
     const handleIntroductionComplete = (completed) => {
         setIsIntroductionCompleted(completed);
     };
@@ -608,9 +591,7 @@ function App() {
 
     return (
         <div className='app'>
-            {isLoading ? (
-                <Loading onLoadingComplete={isLoadingComplete} />
-            ) : showContent ? (
+            {showContent ? (
                 <>
                     <header>
                         <Navigation />

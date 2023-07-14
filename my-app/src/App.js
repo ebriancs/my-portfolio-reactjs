@@ -519,8 +519,23 @@ function Contact() {
     );
 }
 
-function Loading({ onLoadingComplete }) {
+function Loading() {
+    const [isLoading, setIsLoading] = useState(true);
     const [dots, setDots] = useState('.');
+
+    useEffect(() => {
+        const handleLoad = () => {
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 2000);
+        };
+
+        window.addEventListener('load', handleLoad);
+
+        return () => {
+            window.removeEventListener('load', handleLoad);
+        };
+    }, []);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -539,20 +554,24 @@ function Loading({ onLoadingComplete }) {
         }
     }, []);
 
-    return (
-        <>
-            <div className={`loading ${onLoadingComplete ? 'exit' : ''}`}>
-                LOADING <span>{dots}</span>
-            </div>
-        </>
-    );
+    if (isLoading) {
+        return (
+            <>
+                <div className='loading'>
+                    LOADING <span>{dots}</span>
+                </div>
+            </>
+        );
+    }
+
+    return <App />;
 }
 
 function App() {
+    const [showContent, setShowContent] = useState(true);
     const [isIntroductionCompleted, setIsIntroductionCompleted] = useState(false);
     const [isSkillsCompleted, setIsSkillsCompleted] = useState(false);
     const [isAchievementsCompleted, setIsAchievementsCompleted] = useState(false);
-    const [showContent, setShowContent] = useState(true);
 
     useEffect(() => {
         const handleResize = () => {
@@ -614,4 +633,4 @@ function App() {
     );
 }
 
-export default App;
+export default Loading;

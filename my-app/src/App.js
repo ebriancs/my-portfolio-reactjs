@@ -550,6 +550,7 @@ function Contact() {
 
 function App() {
     const [isLoading, setIsLoading] = useState(true);
+    const [isLoadingComplete, setIsLoadingComplete] = useState(false);
     const [isIntroductionCompleted, setIsIntroductionCompleted] = useState(false);
     const [isSkillsCompleted, setIsSkillsCompleted] = useState(false);
     const [isAchievementsCompleted, setIsAchievementsCompleted] = useState(false);
@@ -589,8 +590,9 @@ function App() {
     const handleLoading = () => {
         setTimeout(() => {
             setIsLoading(false);
+            setIsLoadingComplete(true);
         }, 2000);
-    }
+    };
 
     const handleIntroductionComplete = (completed) => {
         setIsIntroductionCompleted(completed);
@@ -607,7 +609,7 @@ function App() {
     return (
         <div className='app'>
             {isLoading ? (
-                <Loading onLoadingComplete={handleLoading} />
+                <Loading onLoadingComplete={isLoadingComplete} />
             ) : showContent ? (
                 <>
                     <header>

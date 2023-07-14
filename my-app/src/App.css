@@ -1,6 +1,5 @@
 /* ALL */
 * {
-    background-color: rgb(30, 30, 30);
     color: whitesmoke;
     font-family: monospace;
     margin: 0;
@@ -28,6 +27,11 @@
 
 ::-webkit-scrollbar-thumb:hover {
     background-color: cyan;
+}
+
+/* BODY */
+body {
+    background-color: rgb(30, 30, 30);
 }
 
 /* APP */

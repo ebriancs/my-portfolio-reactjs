@@ -519,6 +519,52 @@ function Contact() {
     );
 }
 
+function Loading() {
+    const [isLoading, setIsLoading] = useState(true);
+    const [dots, setDots] = useState('.');
+
+    useEffect(() => {
+        const handleLoad = () => {
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 2000);
+        };
+
+        window.addEventListener('load', handleLoad);
+
+        return () => {
+            window.removeEventListener('load', handleLoad);
+        };
+    }, []);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setDots((prevDots) => {
+                if (prevDots === '...') {
+                    return '.';
+                }
+                else {
+                    return prevDots + '.';
+                }
+            });
+        }, 500);
+
+        return () => {
+            clearInterval(timer);
+        }
+    }, []);
+
+    if (isLoading) {
+        return (
+            <>
+                <div className='loading'>
+                    LOADING <span>{dots}</span>
+                </div>
+            </>
+        );
+    }
+}
+
 function App() {
     const [showContent, setShowContent] = useState(true);
     const [isIntroductionCompleted, setIsIntroductionCompleted] = useState(false);
@@ -580,20 +626,13 @@ function App() {
 
     useEffect(() => {
         const timer = setInterval(() => {
-            setDots((prevDots) => {
-                if (prevDots === '...') {
-                    return '.';
-                }
-                else {
-                    return prevDots + '.';
-                }
-            });
+            setDots((prevDots) => (prevDots === '...' ? '.' : prevDots + '.'));
         }, 500);
 
         return () => {
             clearInterval(timer);
-        }
-    }, []);
+        };
+    });
 
     if (isLoading) {
         return (

@@ -580,19 +580,19 @@ function App() {
     }, []);
 
     useEffect(() => {
+        const handleLoading = () => {
+            setTimeout(() => {
+                setIsLoading(false);
+                setIsLoadingComplete(true);
+            }, 2000);
+        };
+
         window.addEventListener('load', handleLoading);
 
         return () => {
             window.removeEventListener('load', handleLoading);
-        }
+        };
     }, []);
-
-    const handleLoading = () => {
-        setTimeout(() => {
-            setIsLoading(false);
-            setIsLoadingComplete(true);
-        }, 2000);
-    };
 
     const handleIntroductionComplete = (completed) => {
         setIsIntroductionCompleted(completed);

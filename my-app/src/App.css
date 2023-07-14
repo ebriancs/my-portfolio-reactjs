@@ -1,5 +1,6 @@
 /* ALL */
 * {
+    background-color: rgb(30, 30, 30);
     color: whitesmoke;
     font-family: monospace;
     margin: 0;
@@ -34,6 +35,16 @@
     background-color: rgb(30, 30, 30);
     color: whitesmoke;
     overflow-x: hidden;
+    opacity: 0;
+    transform: scale(0.9);
+    animation: app-entrance 1s ease forwards;
+}
+
+@keyframes app-entrance {
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 /* LOADING */

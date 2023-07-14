@@ -519,7 +519,48 @@ function Contact() {
     );
 }
 
-function Loading() {
+function App() {
+    const [showContent, setShowContent] = useState(true);
+    const [isIntroductionCompleted, setIsIntroductionCompleted] = useState(false);
+    const [isSkillsCompleted, setIsSkillsCompleted] = useState(false);
+    const [isAchievementsCompleted, setIsAchievementsCompleted] = useState(false);
+
+    useEffect(() => {
+        const handleResize = () => {
+            const minWidth = 1200;
+            const minHeight = 600;
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+
+            if (screenWidth < minWidth || screenHeight < minHeight) {
+                setShowContent(false);
+            } else {
+                setShowContent(true);
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        handleResize();
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    const handleIntroductionComplete = (completed) => {
+        setIsIntroductionCompleted(completed);
+    };
+
+    const handleSkillsComplete = (completed) => {
+        setIsSkillsCompleted(completed);
+    };
+
+    const handleAchievementsComplete = (completed) => {
+        setIsAchievementsCompleted(completed);
+    }
+
+    // LOADING
     const [isLoading, setIsLoading] = useState(true);
     const [dots, setDots] = useState('.');
 
@@ -564,50 +605,6 @@ function Loading() {
         );
     }
 
-    return <App />;
-}
-
-function App() {
-    const [showContent, setShowContent] = useState(true);
-    const [isIntroductionCompleted, setIsIntroductionCompleted] = useState(false);
-    const [isSkillsCompleted, setIsSkillsCompleted] = useState(false);
-    const [isAchievementsCompleted, setIsAchievementsCompleted] = useState(false);
-
-    useEffect(() => {
-        const handleResize = () => {
-            const minWidth = 1200;
-            const minHeight = 600;
-            const screenWidth = window.innerWidth;
-            const screenHeight = window.innerHeight;
-
-            if (screenWidth < minWidth || screenHeight < minHeight) {
-                setShowContent(false);
-            } else {
-                setShowContent(true);
-            }
-        };
-
-        window.addEventListener('resize', handleResize);
-
-        handleResize();
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-
-    const handleIntroductionComplete = (completed) => {
-        setIsIntroductionCompleted(completed);
-    };
-
-    const handleSkillsComplete = (completed) => {
-        setIsSkillsCompleted(completed);
-    };
-
-    const handleAchievementsComplete = (completed) => {
-        setIsAchievementsCompleted(completed);
-    }
-
     return (
         <div className='app'>
             {showContent ? (
@@ -633,4 +630,4 @@ function App() {
     );
 }
 
-export default Loading;
+export default App;

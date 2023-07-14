@@ -806,7 +806,7 @@
     border-spacing: 0 3px;
 }
 
-.details th {
+.details td:first-child {
     background-color: maroon;
     padding-left: 10px;
     text-align: left;
@@ -814,7 +814,7 @@
     border-radius: 5px 0 0 5px;
 }
 
-.details td {
+.details td:last-child {
     background-color: darkslategray;
     padding-left: 10px;
     text-align: center;

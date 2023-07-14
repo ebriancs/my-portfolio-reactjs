@@ -411,12 +411,14 @@ function Contact() {
             <>
                 <div className='details'>
                     <table>
-                        {detailsData.map((data, index) => (
-                            <tr key={index} className={`${isDetailClicked && isCardAnimationFinished ? 'entrance' : ''}`} style={{ animationDelay: `${index * 0.2}s` }}>
-                                <th>{data.label}</th>
-                                <td>{data.value}</td>
-                            </tr>
-                        ))}
+                        <tbody>
+                            {detailsData.map((data, index) => (
+                                <tr key={index} className={`${isDetailClicked && isCardAnimationFinished ? 'entrance' : ''}`} style={{ animationDelay: `${index * 0.2}s` }}>
+                                    <td>{data.label}</td>
+                                    <td>{data.value}</td>
+                                </tr>
+                            ))}
+                        </tbody>
                     </table>
                 </div>
             </>

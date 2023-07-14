@@ -606,44 +606,6 @@ function App() {
         setIsAchievementsCompleted(completed);
     }
 
-    // LOADING
-    const [isLoading, setIsLoading] = useState(true);
-    const [dots, setDots] = useState('.');
-
-    useEffect(() => {
-        const handleLoad = () => {
-            setTimeout(() => {
-                setIsLoading(false);
-            }, 2000);
-        };
-
-        window.addEventListener('load', handleLoad);
-
-        return () => {
-            window.removeEventListener('load', handleLoad);
-        };
-    }, []);
-
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setDots((prevDots) => (prevDots === '...' ? '.' : prevDots + '.'));
-        }, 500);
-
-        return () => {
-            clearInterval(timer);
-        };
-    });
-
-    if (isLoading) {
-        return (
-            <>
-                <div className='loading'>
-                    LOADING <span>{dots}</span>
-                </div>
-            </>
-        );
-    }
-
     return (
         <div className='app'>
             {showContent ? (
